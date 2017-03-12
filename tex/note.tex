@@ -1,0 +1,114 @@
+\documentclass[twoside]{amsart}
+
+\usepackage[sc]{mathpazo}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{microtype}
+\usepackage[english]{babel}
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry}
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape}
+
+\usepackage{hyperref}
+
+\title{Stochastic discrete Solow models}
+\author{St\'ephane Adjemian}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+This note presents the Solow models distributed in the \verb+mod+ subfolder of this repository. All the variants share the same basic environment. Population and efficiency are exogenous stochastic processes. In models not predicting endogenous growth (in section \ref{sec:2} we consider a case with endogenous growth), demography and efficiency have deterministic and stochastic trends. Saving behaviour is exogenous. Depreciation rate is constant.
+
+\section{Basic Solow model}
+\label{sec:1}
+
+Production at time $t$ is given by a constant return to scale technology:
+\begin{equation}
+  \label{eq:production}
+  Y_t = F(K_{t-1}, A_t L_t)
+\end{equation}
+where $A_t$ is the efficiency of labour input, $L_t$ is the quantity of labour (or the population), and $K_{t-1}$ is the predetermined level of physical capital. Efficiency growth is assumed to be a first order autoregressive process. We have:
+\begin{subequations}
+  \label{eq:growingefficiency}
+\begin{equation}
+  \label{eq:efficiencygrowthfactor-1}
+  X_t = \frac{A_t}{A_{t-1}}
+\end{equation}
+\begin{equation}
+  \label{eq:efficiencygrowthfactor-2}
+  \frac{X_t}{X^{\star}} = \left(\frac{X_{t-1}}{X^{\star}}\right)^{\rho_x}e^{\varepsilon_{x,t}}
+\end{equation}
+\end{subequations}
+with $\varepsilon_{x,t}$ a Gaussian white noise with mean zero and variance $\sigma_x^2$, and $|\rho_x|<1$. Population growth is assumed to be a first order autoregressive process. We have:
+\begin{subequations}
+  \label{eq:growingpopulation}
+\begin{equation}
+  \label{eq:populationgrowthfactor-1}
+  N_t = \frac{L_t}{L_{t-1}}
+\end{equation}
+\begin{equation}
+  \label{eq:populationgrowthfactor-2}
+  \frac{N_t}{N^{\star}} = \left(\frac{N_{t-1}}{N^{\star}}\right)^{\rho_n}e^{\varepsilon_{n,t}}
+\end{equation}
+\end{subequations}
+with $\varepsilon_{n,t}$ a Gaussian white noise with mean zero and variance $\sigma_n^2$, and $|\rho_n|<1$. Saving and physical capital stock depreciation rates are assumed to be constant, so that the capital law of motion is given by:
+\begin{equation}
+  \label{eq:capitallawofmotion}
+  K_t = (1-\delta)K_{t-1} + s Y_t
+\end{equation}
+In this section we simulate the model with the following production functions:\newline
+
+\begin{itemize}
+\item Cobb Douglas:
+  \[
+    F(K, L) = K^{\alpha}L^{1-\alpha}
+  \]
+  where $\alpha\in[0,1]$ is the elasticity of output with respect to capital.\newline
+\item Constant Elasticity of Substitution:
+  \[
+    F(K, L) = \left(\alpha K^{\frac{\sigma-1}{\sigma}} + (1-\alpha) L^{\frac{\sigma-1}{\sigma}}\right)^{\frac{\sigma}{\sigma-1}}
+  \]
+  where $\sigma \geq 0$ is the elasticity of substitution between factors, and $\alpha\in[0,1]$ (which as not the same interpretation as in the Cobb-Douglas case).\newline
+\item Complementary factors
+  \[
+    F(K, L) = \min (aK, bL)
+  \]
+  where $a$ and $b$ are positive real parameters.
+\end{itemize}
+
+\section{Solow model with endogenous growth}
+\label{sec:2}
+
+In this section we remove the exogenous sources of growth by replacing \ref{eq:growingefficiency} and \ref{eq:growingpopulation} with:
+\begin{equation}
+  \label{eq:stationarypopulation}
+    \frac{A_t}{A^{\star}} = \left(\frac{A_{t-1}}{A^{\star}}\right)^{\rho_a}e^{\varepsilon_{a,t}}
+\end{equation}
+and
+\begin{equation}
+  \label{eq:stationarypopulation}
+    \frac{L_t}{L^{\star}} = \left(\frac{L_{t-1}}{L^{\star}}\right)^{\rho_l}e^{\varepsilon_{l,t}}
+\end{equation}
+Provided that the elasticity of substitution between factors is higher
+than in the Cobb-Douglas case, the model predicts endogenous growth if
+the saving rate is important enough, i.e. if the following inequality
+holds:
+\[
+s > \delta\alpha^{-\frac{\sigma}{\sigma-1}}
+\]
+
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

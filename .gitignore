@@ -1,0 +1,9 @@
+mod/*.log
+mod/*.m
+mod/*.mat
+
+mod/solow_cd/*
+mod/solow_hd/*
+mod/solow_ces/*
+solow_ces_endogenous_growth/*
+solow_cd_with_steadystate/*

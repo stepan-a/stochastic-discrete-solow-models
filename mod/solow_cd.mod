@@ -71,3 +71,8 @@ shocks;
 end;
 
 oo_ = simul_backward_nonlinear_model([], 5000, options_, M_, oo_);
+
+plot(log(oo_.endo_simul(5,:)));
+title('log(Output)');
+axis tight
+box on
